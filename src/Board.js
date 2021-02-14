@@ -1,19 +1,29 @@
 import React from 'react';
 
 class Board extends React.Component {
+
+    handleClick (match) {
+        this.props.finishMatch(match);
+        /*const finished_match = {
+            ...this.props.matches,
+            match.status : 'Finished'
+        };
+        this.props.finishMatch(this.props.index, finished_match);*/
+    };
+
     render(){
         return (
             <div className="board">
-                <h2>Board</h2>
-                {Object.keys(this.props.matches).map(key =>
-                    <EditMatchForm
-                        key={key}
-                        index={key}
-                        match={this.props.matches[key]}
-                        updateFish={this.props.updateMatch}
-                    />
+                <h2>Matches in game</h2>
+                {Object.keys(this.props.matches).map((key) => (
+                    
+                    this.props.matches[key].status == 'Started' &&
+                    <p key={key}>
+                        {this.props.matches[key].home_team} {this.props.matches[key].result_home_team} - {this.props.matches[key].result_away_team} {this.props.matches[key].away_team}
+                        <button key="button{key}" onClick={e => {this.handleClick(this.props.matches[key])}} className="cross-finish-match">X</button>
+                    </p>
+                    )
                 )}
-                <button onClick={this.props.loadSampelMatches}>Load Sample Match</button>
             </div>
         );
     }
