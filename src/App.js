@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Modal from './Modal';
 import Header from './Header';
 import AddMatchForm from './AddMatchForm';
+import UpdateMatchForm from './UpdateMatchForm';
 import Board from './Board';
 //import base from '../base';
 
@@ -40,6 +41,10 @@ class App extends React.Component {
 			this.setState({
 		    	show_modal_finish_match: !this.state.show_modal_finish_match
 		    });
+  		} else if(e == 'update_match'){
+			this.setState({
+		    	show_modal_update_match: !this.state.show_modal_update_match
+		    });
   		}
 	  };
 
@@ -48,23 +53,24 @@ class App extends React.Component {
   	};
 
     addMatch = match => {
-        const matches = {...this.state.matches};
+        /*const matches = {...this.state.matches};
         matches[`match${Date.now()}`] = match;
-        this.setState({ matches });
-        /*let found = false;
-        Object.keys(this.state.matches).map((item, i) => (
+        this.setState({ matches });*/
+        const matches = {...this.state.matches};
+        let found = false;
+        Object.keys(this.state.matches).map((item, i) => 
         	{
 	            if (this.state.matches[item].home_team == match.home_team && this.state.matches[item].away_team == match.away_team){
 	                found = true;
 	            }
         	}
-        ))
+        )
         if (!found){
 	        matches[`match${Date.now()}`] = match;
 	        this.setState({ matches });
     	} else {
-    		alert("ssadasdas");
-    	}*/
+    		alert("This match exists");
+    	}
     };
 
     finishMatch = (match) => {
@@ -73,6 +79,11 @@ class App extends React.Component {
         this.setState( {matches} );
     };
 
+    updateMatch = (key, updatedMatch) => {
+        const matches = {...this.state.matches };
+        matches[key] = updatedMatch;
+        this.setState( {matches} );
+    };
 
     countMatches(){
     	const matches = this.state.matches;
@@ -110,6 +121,21 @@ class App extends React.Component {
 		            <button onClick={e => {this.showModal('finish_match');}}> { !this.state.show_modal_finish_match ? 'Finish match' : 'Close'} </button>
 		            <Modal onClose={this.showModal} show_modal={this.state.show_modal_finish_match}>
 						<Board matches={this.state.matches} finishMatch={this.finishMatch}/>
+					</Modal>
+				</div>
+
+	            <div className="menu_table col-md-12">
+		            <button onClick={e => {this.showModal('update_match');}}> { !this.state.show_modal_update_match ? 'Update scores' : 'Close'} </button>
+		            <Modal onClose={this.showModal} show_modal={this.state.show_modal_update_match}>
+		                {Object.keys(this.state.matches).map(key =>
+	                		this.state.matches[key].status != "Finished" &&
+		                    <UpdateMatchForm
+		                        key={key}
+		                        index={key}
+		                        match={this.state.matches[key]}
+		                        updateMatch={this.updateMatch}
+		                    />
+		                )}
 					</Modal>
 				</div>
 
