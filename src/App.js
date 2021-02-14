@@ -100,6 +100,8 @@ class App extends React.Component {
 	                	this.countMatches() > 0
 	                		?
 		                	Object.keys(this.state.matches).map((item, i) => (
+
+		                		this.state.matches[item].status != "Finished" &&
 		                		<div className='line-match' key={i}>
 		                			<span className="input-label">
 		                			{this.state.matches[item].home_team} {this.state.matches[item].result_home_team} - {this.state.matches[item].result_away_team} {this.state.matches[item].away_team}
