@@ -11,12 +11,12 @@ class AddMatchForm extends React.Component {
             away_team: this.away_teamRef.current.value,
             result_home_team: 0,
             result_away_team: 0,
-            status: 'started'
+            status: 'Started'
         };
-
-        this.props.addMatch(match);
-        // refresh the form
-        event.currentTarget.reset();
+        if (match.home_team != "" && match.away_team != ""){
+            this.props.addMatch(match);
+            event.currentTarget.reset();
+        }
     };
 
     render(){

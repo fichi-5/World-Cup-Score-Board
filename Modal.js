@@ -2,7 +2,8 @@ import React from "react";
 export default class Modal extends React.Component {
 
 onClose = e => {
-  this.props.show_modal = false;
+  this.props.show_modal_add_match = false;
+  this.props.show_modal_finish_match = false;
 };
 
 render() {
