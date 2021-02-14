@@ -4,11 +4,6 @@ class Board extends React.Component {
 
     handleClick (match) {
         this.props.finishMatch(match);
-        /*const finished_match = {
-            ...this.props.matches,
-            match.status : 'Finished'
-        };
-        this.props.finishMatch(this.props.index, finished_match);*/
     };
 
     render(){

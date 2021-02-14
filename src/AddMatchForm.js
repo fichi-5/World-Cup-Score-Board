@@ -11,6 +11,8 @@ class AddMatchForm extends React.Component {
             away_team: this.away_teamRef.current.value,
             result_home_team: 0,
             result_away_team: 0,
+            total_goals: 0,
+            time_start: Date.now(),
             status: 'Started'
         };
         if (match.home_team != "" && match.away_team != ""){
